@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <link rel="stylesheet" href="./style/home-style.css">
+    <link rel="stylesheet" href="./libs/fontawesome-free-6.4.2-web/css/all.min.css">
+  </head>
+  <body>
+    <div class="loading" id="loader">
+      Content is Loading !!!
+    </div>
+    <div class="social-bar-item">
+      <i class="fa-brands fa-facebook"></i>
+      <span>Facebook</span>
+    </div>
+    <div class="social-bar-item">
+      <i class="fa-brands fa-square-instagram"></i>
+      <span>Instagram</span>
+    </div>
+    <div class="social-bar-item">
+      <i class="fa-solid fa-phone"></i>
+      <span>Hotline</span>
+    </div>
+    <div class="social-bar-item">
+      <i class="fa-solid fa-music"></i>
+      <audio controls autoplay id="myAudio" loop>
+        <source src="../AmThamBenEm.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+    <div class="title-bar">
+      <div class="title-bar-icon">
+        <img id="avatar-app" src="../public/icon/ViThienOEM.ico" alt="Title-bar">
+      </div>
+      <span class="title-bar-title">AIO Software Made by ViThienFunnyDev - v1.0.0</span>
+    </div>
+    <div class="main-app" id="main-app">
+        <div class="application-hovering" id="application-hovering"></div>
+        <div class="header-nav">
+          <ul class="nav-list">
+            <li class="nav-item">All app</li>
+            <li class="nav-item">Browser</li>
+            <li class="nav-item">Office</li>
+            <li class="nav-item">Hard Disk</li>
+            <li class="nav-item">Clean up</li>
+            <li class="nav-item">Active</li>
+            <li class="nav-item">Tools</li>
+            <li class="nav-item">UI-Custom</li>
+          </ul>
+        </div>
+        <div class="search-application">
+          <div class="search-title">
+            Quick search Application
+          </div>
+          <div class="search-action">
+            <input type="text" id="input-search" placeholder="Name of the APP want to search...">
+            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+          </div>
+        </div>
+        <div class="filter-on-search">
+          <span class="filter-title">Filter: </span>
+          <div class="filter-list">
+            <span class="filter-item">All app </span>
+            <span class="filter-item" spellcheck="false" id="input-search-show"></span>
+          </div>
+        </div>
+        <div class="application-area">
+            <ul class="application-list" id="application-list"></ul>
+        </div>
+    </div>
+    <div class="close-btn" id="close-app">
+      <i class="fa-solid fa-circle-xmark"></i>
+    </div>
+    <script src="./js/renderer.js">
+    </script>
+  </body>
+</html>
+
