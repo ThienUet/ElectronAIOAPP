@@ -5,18 +5,19 @@ const electronReload = require('electron-reload');
 const {exec} = require('child_process');
 const unhandled = require('electron-unhandled');
 
+let icon;
 let dirImage;
 let dirApp;
 if (process.env.NODE_ENV === 'development') {
   // TAKE THE IMAGE FOLDER
   dirImage = path.join(app.getAppPath(), 'public', 'images', 'application-image');
   // TAKE THE BROWSER SOFTWARE FOLDER
-  dirApp = path.join(app.getAppPath(), 'app');
+  dirApp = path.join(app.getAppPath(), 'app_run');
 } else {
   // TAKE THE IMAGE FOLDER
   dirImage = path.join(path.dirname(app.getAppPath()), 'public', 'images', 'application-image');
   // TAKE THE BROWSER SOFTWARE FOLDER
-  dirApp = path.join(path.dirname(app.getAppPath()), 'app');
+  dirApp = path.join(path.dirname(app.getAppPath()), 'app_run');
 }
 
 
@@ -40,7 +41,7 @@ const homeWindowShow = async () => {
     }
   });
   mainWindow.loadFile('./view/home.html');
-
+  mainWindow.webContents.openDevTools();
   // HANDLE WHEN LOAD APP
   ipcMain.handle('load-app-for-home', async (event, specifiedDir) => {
     const listAppRender = new Set();

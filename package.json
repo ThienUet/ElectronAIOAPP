@@ -8,26 +8,38 @@
     "start": "SET NODE_ENV=development&&electron .",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "dong-goi": "electron-packager --overwrite . --asar --platform=win32 --arch=ia32,x64 --icon=public/icon/ViThienOEM.ico --prune=true --out=release-builds --version-string.ProductName=\"AIO Software\" --ignore=app"
+    "dong-goi": "electron-builder --win --x64"
+  },
+  "build":{
+    "appId": "com.ViThien.AIOAPP",
+    "asar": false,
+    "directories": {
+      "output": "/dong-goi-xong"
+    },
+    "files": [
+      "!**/node_modules/*",
+      "!**/app_run/*"
+    ],
+    "extraResources": [
+      {
+        "from": "app_run",
+        "to": "app_run"
+      }
+    ],
+    "win":{
+        "target": "portable",
+        "icon" :   "./public/icon/ViThienOEM.ico"            
+    }
   },
   "author": "ViThien",
   "license": "ISC",
   "devDependencies": {
-    "@electron-forge/cli": "^6.4.2",
-    "@electron-forge/maker-deb": "^6.4.2",
-    "@electron-forge/maker-rpm": "^6.4.2",
-    "@electron-forge/maker-squirrel": "^6.4.2",
-    "@electron-forge/maker-zip": "^6.4.2",
-    "@electron-forge/plugin-auto-unpack-natives": "^6.4.2",
-    "electron": "^27.0.3"
+    "electron": "^27.0.3",
+    "electron-builder": "^24.6.4"
   },
   "dependencies": {
-    "bytenode": "^1.5.3",
     "crypto": "^1.0.1",
-    "decompress-zip": "^0.3.3",
-    "electron-packager": "^17.1.2",
     "electron-reload": "^2.0.0-alpha.1",
-    "electron-squirrel-startup": "^1.0.0",
     "electron-unhandled": "^4.0.1"
   }
 }
