@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'development') {
 } else {
   // TAKE THE IMAGE FOLDER
   dirImage = path.join(path.dirname(app.getAppPath()), 'public', 'images', 'application-image');
-  // TAKE THE BROWSER SOFTWARE FOLDER
+  // TAKE THE SOFTWARES FOLDER
   dirApp = path.join(path.dirname(app.getAppPath()), 'app_run');
 }
 
