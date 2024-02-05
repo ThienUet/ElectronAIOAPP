@@ -2,7 +2,7 @@ const { app, BrowserWindow, ipcMain, Menu, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const electronReload = require('electron-reload');
-const {exec} = require('child_process');
+const { exec } = require('child_process');
 const unhandled = require('electron-unhandled');
 
 let icon;
@@ -25,7 +25,7 @@ let mainWindow;
 
 const homeWindowShow = async () => {
   Menu.setApplicationMenu(false);
-  mainWindow = new BrowserWindow({ 
+  mainWindow = new BrowserWindow({
     width: 800,
     height: 700,
     menu: null,
@@ -35,9 +35,9 @@ const homeWindowShow = async () => {
     frame: false,
     icon: '/public/icon/ViThienOEM.ico',
     webPreferences: {
-        nodeIntegration: true,
-        contextIsolation: true,
-        preload: path.join(__dirname, "preload-js", "preload.js")
+      nodeIntegration: true,
+      contextIsolation: true,
+      preload: path.join(__dirname, "preload-js", "preload.js")
     }
   });
   mainWindow.loadFile('./view/home.html');
@@ -46,7 +46,7 @@ const homeWindowShow = async () => {
   ipcMain.handle('load-app-for-home', async (event, specifiedDir) => {
     const listAppRender = new Set();
     let listAppImage, listAppFile, folders;
-  
+
     try {
       if (specifiedDir) {
         listAppImage = await fs.promises.readdir(dirImage);
@@ -64,7 +64,7 @@ const homeWindowShow = async () => {
         buttons: ['OK']
       });
     }
-  
+
     if (specifiedDir && listAppImage && listAppFile) {
       listAppImage.forEach((image) => {
         const fileName = image.split('.')[0];
@@ -106,54 +106,53 @@ const homeWindowShow = async () => {
 
 app.whenReady().then(async () => {
   homeWindowShow();
-  console.log(process.env.NODE_ENV);
-    ipcMain.on('execute-app', async (event, data) => {
-      const pathToApp = path.join(data?.urlApp);
-      // GRAND FULL PRIVILEGE
-      fs.chmod(pathToApp, '777', (err) => {
-          if (err) {
-            console.error('Error occurred while granting full access:', err);
-          } else {
-            console.log('Full access granted.');
-          }
-        });
-  
-      const child = exec(`start "" "${pathToApp}"`, (error, stdout, stderr) => {
-        if (error) {
-          console.log(error);
-        }
-        if (stderr) {
-          console.error("LOI GI DAY " + stderr);
-        }
-        if (stdout) {
-          console.log(stdout);
-        }
-      });
+  ipcMain.on('execute-app', async (event, data) => {
+    const pathToApp = path.join(data?.urlApp);
+    // GRAND FULL PRIVILEGE
+    fs.chmod(pathToApp, '777', (err) => {
+      if (err) {
+        console.error('Error occurred while granting full access:', err);
+      } else {
+        console.log('Full access granted.');
+      }
+    });
 
-    
+    const child = exec(`start "" "${pathToApp}"`, (error, stdout, stderr) => {
+      if (error) {
+        console.log(error);
+      }
+      if (stderr) {
+        console.error("LOI GI DAY " + stderr);
+      }
+      if (stdout) {
+        console.log(stdout);
+      }
     });
 
 
-
-    ipcMain.on('click-to-close-app', (event) => {
-      const choice = dialog.showMessageBoxSync(mainWindow, {
-        type: 'question',
-        buttons: ['Yes', 'No'],
-        title: 'Confirm',
-        message: 'Are you sure you want to quit?'
-      });
-      if (choice === 0) {
-        app.quit();
-      } else {
-        event.preventDefault();
-      }
-    })
+  });
 
 
 
-    app.on('active', () => {
-        if (BrowserWindow.getAllWindows().length === 0) createWindow();
-    })
+  ipcMain.on('click-to-close-app', (event) => {
+    const choice = dialog.showMessageBoxSync(mainWindow, {
+      type: 'question',
+      buttons: ['Yes', 'No'],
+      title: 'Confirm',
+      message: 'Are you sure you want to quit?'
+    });
+    if (choice === 0) {
+      app.quit();
+    } else {
+      event.preventDefault();
+    }
+  })
+
+
+
+  app.on('active', () => {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  })
 })
 
 
@@ -161,7 +160,7 @@ app.whenReady().then(async () => {
  * Work for all operating system. Make sure that app will exit entirely.
  */
 app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') app.quit();
+  if (process.platform !== 'darwin') app.quit();
 })
 unhandled();
 electronReload(__dirname);
